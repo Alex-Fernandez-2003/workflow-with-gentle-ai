@@ -1,0 +1,16 @@
+# Local verification and operational tracking (keep on disk)
+/tests/
+/odd/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# LaTeX auxiliaries from manual in-place builds (the renderer uses system temp)
+*.aux
+*.log
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz

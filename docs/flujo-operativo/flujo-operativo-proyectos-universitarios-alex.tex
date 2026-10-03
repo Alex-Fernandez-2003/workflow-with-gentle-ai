@@ -1,0 +1,1108 @@
+\documentclass[11pt,a4paper]{article}
+
+% ------------------------------------------------------------
+% Codificación, idioma y tipografía
+% ------------------------------------------------------------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{setspace}
+\usepackage{parskip}
+
+% ------------------------------------------------------------
+% Página y estructura
+% ------------------------------------------------------------
+\usepackage[a4paper,margin=2.35cm,headheight=15pt]{geometry}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{ragged2e}
+
+% ------------------------------------------------------------
+% Tablas, gráficos y cajas
+% ------------------------------------------------------------
+\usepackage{graphicx}
+\graphicspath{{assets/}}
+\usepackage{xcolor}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage[most]{tcolorbox}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,shapes.geometric,fit,calc}
+
+% ------------------------------------------------------------
+% Enlaces
+% ------------------------------------------------------------
+\usepackage{hyperref}
+\usepackage{url}
+\Urlmuskip=0mu plus 1mu\relax
+
+% ------------------------------------------------------------
+% Colores
+% ------------------------------------------------------------
+\definecolor{Primary}{HTML}{7C3AED}
+\definecolor{PrimaryDark}{HTML}{4C1D95}
+\definecolor{Accent}{HTML}{EC4899}
+\definecolor{SoftPurple}{HTML}{F5F3FF}
+\definecolor{SoftGray}{HTML}{F8FAFC}
+\definecolor{Border}{HTML}{CBD5E1}
+\definecolor{TextGray}{HTML}{475569}
+\definecolor{Success}{HTML}{166534}
+\definecolor{Warning}{HTML}{9A3412}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=PrimaryDark,
+    urlcolor=Primary,
+    citecolor=PrimaryDark,
+    pdftitle={Flujo Operativo Personal para Proyectos Universitarios de Software},
+    pdfauthor={Alex Saúl Fernández Valdez},
+    pdfsubject={Checklist Maestra v4, Sprint 0, UX Pilot, Gentle AI ODD Briefing Generator, Pi y Gentle Shell}
+}
+
+% ------------------------------------------------------------
+% Encabezado y pie
+% ------------------------------------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\small Flujo Operativo Personal}
+\rhead{\small Alex Saúl Fernández Valdez}
+\cfoot{\small Página \thepage\ de \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.3pt}
+
+% ------------------------------------------------------------
+% Títulos
+% ------------------------------------------------------------
+\titleformat{\section}
+  {\Large\bfseries\color{PrimaryDark}}
+  {\thesection.}{0.6em}{}
+\titleformat{\subsection}
+  {\large\bfseries\color{Primary}}
+  {\thesubsection.}{0.6em}{}
+\titleformat{\subsubsection}
+  {\normalsize\bfseries\color{TextGray}}
+  {\thesubsubsection.}{0.6em}{}
+
+% ------------------------------------------------------------
+% Cajas reutilizables
+% ------------------------------------------------------------
+\newtcolorbox{principlebox}[1][]{
+  enhanced,
+  breakable,
+  colback=SoftPurple,
+  colframe=Primary,
+  boxrule=0.8pt,
+  arc=2mm,
+  title=#1,
+  fonttitle=\bfseries,
+  coltitle=PrimaryDark
+}
+
+\newtcolorbox{notebox}[1][]{
+  enhanced,
+  breakable,
+  colback=SoftGray,
+  colframe=Border,
+  boxrule=0.6pt,
+  arc=2mm,
+  title=#1,
+  fonttitle=\bfseries,
+  coltitle=TextGray
+}
+
+\newtcolorbox{warningbox}[1][]{
+  enhanced,
+  breakable,
+  colback=orange!5,
+  colframe=orange!55!black,
+  boxrule=0.7pt,
+  arc=2mm,
+  title=#1,
+  fonttitle=\bfseries,
+  coltitle=Warning
+}
+
+\newcommand{\phase}[1]{\textbf{\color{PrimaryDark}#1}}
+\newcommand{\artifact}[1]{\texttt{#1}}
+\newcommand{\responsable}{Alex Saúl Fernández Valdez}
+
+\setlist[itemize]{leftmargin=1.6em,itemsep=0.3em,topsep=0.4em}
+\setlist[enumerate]{leftmargin=1.8em,itemsep=0.35em,topsep=0.4em}
+\renewcommand{\arraystretch}{1.22}
+\onehalfspacing
+
+\begin{document}
+
+% Give the unnumbered cover a distinct PDF page anchor from the contents page.
+\pagenumbering{alph}
+
+% ============================================================
+% PORTADA
+% ============================================================
+\begin{titlepage}
+\thispagestyle{empty}
+\centering
+
+\vspace*{1.0cm}
+
+\IfFileExists{assets/gpt-icon.jpg}{
+    \includegraphics[width=3.5cm]{assets/gpt-icon.jpg}
+}{
+    \fbox{\parbox[c][3.5cm][c]{3.5cm}{\centering Imagen del complemento}}
+}
+
+\vspace{0.8cm}
+
+{\Huge\bfseries\color{PrimaryDark}
+Flujo Operativo Personal\\[0.15cm]
+para Proyectos Universitarios de Software
+\par}
+
+\vspace{0.6cm}
+
+{\Large
+Integración de la Checklist Maestra v4, Sprint 0, UX Pilot/Figma,\\
+Gentle AI ODD Briefing Generator, Pi y Organic Driven Development
+\par}
+
+\vspace{1.1cm}
+
+\begin{tcolorbox}[
+  width=0.82\textwidth,
+  colback=SoftPurple,
+  colframe=Primary,
+  boxrule=0.9pt,
+  arc=2.5mm
+]
+\centering
+\textbf{Responsable}\\[0.2cm]
+{\Large\bfseries \responsable}\\[0.5cm]
+\textbf{Complemento personal}\\
+Gentle AI ODD Briefing Generator
+\end{tcolorbox}
+
+\vfill
+
+{\large Documento metodológico y operativo}\\[0.25cm]
+{\small Basado en la Checklist Maestra Universal para Proyectos Universitarios de Software v4\\
+y en una adaptación personal del flujo ODD de Gentleman para trabajo con Pi.}
+
+\vspace{0.8cm}
+
+{\small Octubre de 2026}
+
+\end{titlepage}
+
+\pagenumbering{arabic}
+\tableofcontents
+\newpage
+
+% ============================================================
+\section{Propósito del documento}
+
+Este documento formaliza el flujo operativo que utilizo para desarrollar proyectos universitarios de software. El objetivo no es describir únicamente una metodología de programación, sino representar el proceso completo que sigo desde la comprensión del problema hasta la implementación incremental de historias de usuario, su verificación, la actualización documental y la entrega.
+
+Mi flujo combina cuatro elementos principales:
+
+\begin{enumerate}
+    \item la \textbf{Checklist Maestra Universal para Proyectos Universitarios de Software v4} como marco de análisis, documentación, trazabilidad y control de calidad;
+    \item un \textbf{Sprint 0} personal como transición entre el análisis/documentación y el inicio técnico del producto;
+    \item \textbf{UX Pilot dentro de Figma} para producir referencias visuales de las pantallas antes de implementar las historias de usuario;
+    \item el ecosistema \textbf{Gentle AI + Gentle Shell + Pi}, utilizando Organic Driven Development (ODD) y mi complemento \textbf{Gentle AI ODD Briefing Generator} para transformar cada HU preparada en un handoff de ejecución preciso.
+\end{enumerate}
+
+\begin{principlebox}[Idea rectora]
+Mi adaptación mantiene una separación deliberada entre dos responsabilidades:
+
+\begin{itemize}
+    \item \textbf{Antes de Pi}: comprender, documentar, validar, diseñar el alcance, preparar la arquitectura mínima, construir referencias UX y dejar la HU suficientemente definida.
+    \item \textbf{Con Pi}: explorar el repositorio real, derivar el plan técnico desde evidencia, implementar mediante ODD, verificar y mantener la documentación/evidencia alineada.
+\end{itemize}
+
+Por tanto, ODD no sustituye mi proceso universitario completo: actúa como el flujo de ejecución de software dentro de un proceso mayor que yo adapté a mis necesidades.
+\end{principlebox}
+
+% ============================================================
+\section{Fundamentos que gobiernan mi forma de trabajar}
+
+La Checklist Maestra establece varios principios que adopto como reglas transversales del proyecto:
+
+\begin{itemize}
+    \item \textbf{Comprender antes de construir}: primero se demuestra y entiende el problema; después se diseña la solución.
+    \item \textbf{Evidencia real}: entrevistas, encuestas, observaciones, métricas, validaciones y pruebas no se presentan como reales si no fueron ejecutadas.
+    \item \textbf{Trazabilidad}: una decisión importante debe poder rastrearse hacia una necesidad, requisito, regla, HU, diseño, implementación, prueba o evidencia.
+    \item \textbf{Fuente editable}: diagramas y artefactos visuales mantenibles deben conservar tanto su fuente como su render.
+    \item \textbf{Mínima duplicación}: cada tipo de información debe poseer una fuente principal para evitar copias divergentes.
+    \item \textbf{Evolución controlada}: cuando cambia comportamiento, alcance, arquitectura, datos o estados, deben revisarse también los documentos, diagramas, pruebas y trazabilidad afectados.
+\end{itemize}
+
+Estos principios condicionan todo el flujo posterior, incluido el trabajo con IA. La IA no reemplaza la evidencia ni la validación humana; se utiliza para estructurar, investigar, implementar y verificar de manera controlada.
+
+% ============================================================
+\section{Ecosistema de herramientas}
+
+\subsection{Checklist Maestra Universal v4}
+
+Es el marco de cobertura del proyecto. La utilizo para evitar comenzar a programar sin haber definido adecuadamente:
+
+\begin{itemize}
+    \item contexto y problema;
+    \item stakeholders;
+    \item evidencia y relevamiento;
+    \item hallazgos y necesidades;
+    \item objetivos;
+    \item alcance y MVP;
+    \item SRS, RF, RNF y reglas del dominio;
+    \item UX y flujos;
+    \item backlog, épicas e historias;
+    \item criterios de aceptación y Definition of Ready;
+    \item modelado, arquitectura y datos;
+    \item seguridad, riesgos y pruebas;
+    \item plan de implementación;
+    \item seguimiento, trazabilidad, validación y evidencias.
+\end{itemize}
+
+\subsection{UX Pilot en Figma}
+
+UX Pilot lo incorporo como herramienta de \textbf{preparación visual}. Una vez que el problema, requisitos, alcance y base técnica están suficientemente establecidos, lo utilizo dentro de Figma para generar referencias de las pantallas.
+
+Estas referencias sirven para:
+
+\begin{itemize}
+    \item traducir requisitos y flujos a una intención visual concreta;
+    \item visualizar pantallas clave antes de implementarlas;
+    \item reducir ambigüedad en estados, jerarquía visual y responsive;
+    \item alimentar el contexto de la HU;
+    \item permitir que Pi tenga una referencia visual explícita durante la implementación.
+\end{itemize}
+
+\begin{warningbox}[Límite importante]
+Una referencia de UX Pilot/Figma es una \textbf{fuente de intención visual}, no una autorización automática para ampliar el alcance funcional. Si una imagen muestra elementos decorativos, datos ficticios o funciones no aprobadas, esos elementos no se convierten por sí solos en requisitos.
+\end{warningbox}
+
+\subsection{Gentle AI ODD Briefing Generator}
+
+Mi complemento personal actúa como un \textbf{traductor entre la HU preparada y la ejecución con Pi}. Su trabajo no es programar.
+
+A partir de la HU, de la documentación permanente y de la \textbf{Plantilla Maestra de Prompt — Gentle AI ODD Briefing Generator}, el complemento organiza un único \textbf{ODD Execution Brief}.
+
+El briefing debe transmitir, cuando corresponda:
+
+\begin{itemize}
+    \item objetivo y problema;
+    \item alcance autorizado y non-goals;
+    \item fuentes de verdad;
+    \item comportamiento actual y comportamiento esperado;
+    \item reglas de negocio e invariantes;
+    \item criterios de aceptación y edge cases;
+    \item contexto técnico conocido, sin inventar implementación;
+    \item contratos, datos, estados y compatibilidad;
+    \item expectativas UX;
+    \item decisiones ya aprobadas;
+    \item incertidumbres materiales;
+    \item contexto de pruebas y evidencia esperada;
+    \item documentación permanente afectada;
+    \item permisos Git/delivery;
+    \item condición de parada y Maintainer Review;
+    \item handoff de ejecución para Pi.
+\end{itemize}
+
+\subsection{Pi y Gentle Shell}
+
+Pi es el agente con el que ejecuto el trabajo sobre el repositorio. Gentle Shell proporciona el entorno/orquestación específico de Pi y aplica el flujo ODD, delegación, memoria y controles correspondientes.
+
+En mi modelo:
+
+\begin{itemize}
+    \item \textbf{el complemento conoce la intención};
+    \item \textbf{Pi conoce la realidad del repositorio después de explorarlo};
+    \item \textbf{yo conservo la autoridad sobre alcance y decisiones de producto}.
+\end{itemize}
+
+Esta separación es fundamental para evitar que el briefing invente archivos, clases, endpoints, runners o una arquitectura que todavía no fue comprobada en el código.
+
+% ============================================================
+\section{Vista general de mi flujo operativo}
+
+\begin{center}
+\begin{tikzpicture}[
+  node distance=7mm,
+  box/.style={
+    rectangle,
+    rounded corners=2mm,
+    draw=Primary,
+    fill=SoftPurple,
+    text width=12.7cm,
+    minimum height=1.05cm,
+    align=center,
+    font=\small\bfseries
+  },
+  arrow/.style={-{Latex[length=2.7mm]}, thick, draw=PrimaryDark}
+]
+\node[box] (p1) {1. Descubrimiento y documentación con la Checklist Maestra v4};
+\node[box, below=of p1] (p2) {2. Consolidación: necesidades, alcance, SRS, reglas, backlog, HU y DoR};
+\node[box, below=of p2] (p3) {3. Sprint 0: baseline técnica para poder comenzar el software};
+\node[box, below=of p3] (p4) {4. UX Pilot en Figma: referencias visuales de pantallas y estados};
+\node[box, below=of p4] (p5) {5. Selección/refinamiento de HU + Plantilla Maestra ODD};
+\node[box, below=of p5] (p6) {6. Complemento Gentle AI ODD Briefing Generator: ODD Execution Brief};
+\node[box, below=of p6] (p7) {7. Pi + Gentle Shell: explorar → clasificar → implementar → verificar};
+\node[box, below=of p7] (p8) {8. Evidencia + documentación + trazabilidad + Maintainer Review / entrega};
+\draw[arrow] (p1) -- (p2);
+\draw[arrow] (p2) -- (p3);
+\draw[arrow] (p3) -- (p4);
+\draw[arrow] (p4) -- (p5);
+\draw[arrow] (p5) -- (p6);
+\draw[arrow] (p6) -- (p7);
+\draw[arrow] (p7) -- (p8);
+\end{tikzpicture}
+\end{center}
+
+\begin{principlebox}[Lectura correcta del diagrama]
+El flujo no es una cascada rígida. Existe retroalimentación. Si una HU revela una regla faltante, si la validación contradice una hipótesis o si la implementación descubre una limitación real, vuelvo al artefacto permanente correspondiente y actualizo la trazabilidad. Lo que evito es comenzar cada cambio desde cero o permitir que una decisión descubierta en código reescriba silenciosamente el alcance.
+\end{principlebox}
+
+% ============================================================
+\section{Fase 1 — Documentación y comprensión mediante la checklist}
+
+\subsection{Primero: comprender y demostrar el problema}
+
+Antes de escribir software, utilizo técnicas de relevamiento reales según el contexto del proyecto:
+
+\begin{itemize}
+    \item entrevistas;
+    \item encuestas o cuestionarios;
+    \item observación;
+    \item análisis documental;
+    \item análisis de procesos;
+    \item análisis de datos existentes;
+    \item benchmarking;
+    \item talleres o focus groups cuando aportan valor;
+    \item revisión bibliográfica;
+    \item pruebas de concepto o prototipado cuando la incertidumbre lo requiere.
+\end{itemize}
+
+Cada técnica se justifica por la pregunta que debe responder. El objetivo no es ``tener una entrevista'' o ``tener una encuesta'', sino producir evidencia útil para decidir.
+
+\subsection{De evidencia a decisiones}
+
+La cadena documental que busco es:
+
+\begin{center}
+\textbf{Evidencia}
+\(\rightarrow\)
+\textbf{Hallazgo}
+\(\rightarrow\)
+\textbf{Necesidad}
+\(\rightarrow\)
+\textbf{Objetivo}
+\(\rightarrow\)
+\textbf{Alcance/MVP}
+\(\rightarrow\)
+\textbf{Requisito o regla}
+\(\rightarrow\)
+\textbf{HU}
+\end{center}
+
+Esta cadena reduce el riesgo de crear funcionalidades que no responden a necesidades reales.
+
+\subsection{Baseline antes del desarrollo}
+
+Antes de considerar una HU lista para ejecución, procuro que existan como mínimo, en el nivel de profundidad que el proyecto requiera:
+
+\begin{itemize}
+    \item problema entendido y sustentado;
+    \item stakeholders y actores identificados;
+    \item alcance y fuera de alcance;
+    \item MVP delimitado;
+    \item SRS mínimo;
+    \item RF/RNF y reglas principales;
+    \item backlog priorizado;
+    \item criterios de aceptación;
+    \item Definition of Ready;
+    \item arquitectura mínima y datos suficientemente definidos;
+    \item estrategia inicial de pruebas;
+    \item riesgos y dependencias relevantes.
+\end{itemize}
+
+% ============================================================
+\section{Fase 2 — Sprint 0 como adaptación personal}
+
+La checklist no necesita llamar literalmente ``Sprint 0'' a esta preparación. Yo utilizo ese nombre para agrupar el trabajo técnico que convierte la documentación en una base de software ejecutable.
+
+\subsection{Objetivo del Sprint 0}
+
+El Sprint 0 responde a la pregunta:
+
+\begin{quote}
+\textit{¿Está el proyecto preparado técnica y organizativamente para que la primera HU pueda implementarse sin rehacer el análisis principal ni improvisar la base del repositorio?}
+\end{quote}
+
+\subsection{Contenido típico}
+
+Dependiendo del proyecto, mi Sprint 0 puede incluir:
+
+\begin{itemize}
+    \item creación y organización del repositorio;
+    \item README y convenciones;
+    \item estrategia de ramas;
+    \item estructura documental;
+    \item elección y configuración inicial del stack;
+    \item instalación de dependencias;
+    \item variables/configuración de entorno sin exponer secretos;
+    \item skeleton de frontend y backend cuando corresponda;
+    \item arquitectura mínima viable;
+    \item base del modelo de datos;
+    \item autenticación/autorización base si es prerrequisito transversal;
+    \item estrategia de migraciones/seeds cuando aplique;
+    \item configuración de tests/runners;
+    \item automatizaciones básicas de calidad;
+    \item CI inicial cuando aporta valor;
+    \item Docker/ambientes si el proyecto los requiere;
+    \item tablero y primera iteración priorizada;
+    \item verificación de que la primera HU puede comenzar con dependencias críticas resueltas.
+\end{itemize}
+
+\begin{notebox}[Sprint 0 no es ``implementar todo lo técnico primero'']
+El Sprint 0 debe ser suficiente para habilitar el desarrollo incremental, no una excusa para construir una plataforma completa antes de entregar valor. La arquitectura se prepara hasta el nivel necesario para que el desarrollo por HUs sea viable y coherente.
+\end{notebox}
+
+% ============================================================
+\section{Fase 3 — Diseño visual con UX Pilot en Figma}
+
+Después del Sprint 0 preparo la referencia visual de las pantallas.
+
+El orden es deliberado: UX Pilot recibe un proyecto que ya tiene problema, alcance, reglas, actores y una base técnica suficientemente comprendida. De esa manera, el diseño visual se apoya en decisiones previamente justificadas.
+
+\subsection{Qué espero obtener}
+
+Para las pantallas relevantes procuro cubrir:
+
+\begin{itemize}
+    \item flujo principal;
+    \item pantallas clave;
+    \item navegación;
+    \item estados de carga;
+    \item estados vacíos;
+    \item errores;
+    \item confirmaciones;
+    \item feedback al usuario;
+    \item responsive cuando corresponda;
+    \item accesibilidad básica;
+    \item consistencia visual entre pantallas relacionadas.
+\end{itemize}
+
+\subsection{Cómo se utilizan después}
+
+Las capturas/referencias de Figma se incorporan como contexto de la HU. El briefing debe declarar explícitamente qué partes son:
+
+\begin{itemize}
+    \item comportamiento funcional obligatorio;
+    \item referencia visual;
+    \item dato de ejemplo;
+    \item elemento fuera de alcance.
+\end{itemize}
+
+Así evito que Pi interprete una maqueta como si fuera una especificación funcional completa.
+
+% ============================================================
+\section{Fase 4 — Preparación de la HU}
+
+Una HU no pasa directamente del backlog a Pi. Primero verifico que esté suficientemente refinada.
+
+\subsection{Definition of Ready personal}
+
+Además del DoR del proyecto, para este flujo considero especialmente importante que la HU tenga:
+
+\begin{itemize}
+    \item ID y épica;
+    \item rol, acción y beneficio;
+    \item necesidad/requisito relacionado;
+    \item prioridad;
+    \item dependencias;
+    \item criterios de aceptación;
+    \item reglas de negocio aplicables;
+    \item datos/entidades relevantes;
+    \item permisos;
+    \item precondiciones;
+    \item alternativas y errores importantes;
+    \item riesgos;
+    \item referencia UX/Figma si existe una pantalla asociada;
+    \item claridad suficiente para que el complemento pueda construir el handoff.
+\end{itemize}
+
+\subsection{La Plantilla Maestra como interfaz entre HU y complemento}
+
+Con la HU preparada, utilizo la \textbf{Plantilla Maestra de Prompt — Gentle AI ODD Briefing Generator}.
+
+La plantilla no es un plan técnico del repositorio. Es una estructura para suministrar al complemento el contexto que conozco y las decisiones que ya están autorizadas.
+
+Los grupos de información más importantes son:
+
+\begin{itemize}
+    \item proyecto e identificador del cambio;
+    \item objetivo;
+    \item alcance y non-goals;
+    \item sources of truth;
+    \item comportamiento actual y esperado;
+    \item reglas y aceptación;
+    \item edge cases;
+    \item arquitectura y stack conocidos;
+    \item archivos/símbolos únicamente cuando están realmente confirmados;
+    \item contratos/datos;
+    \item estados y concurrencia;
+    \item migración/data safety;
+    \item seguridad/permisos;
+    \item UX y referencias visuales;
+    \item decisiones aprobadas;
+    \item material uncertainty;
+    \item contexto de test/verificación;
+    \item documentación/evidencia;
+    \item Git/delivery authorization;
+    \item Maintainer Review.
+\end{itemize}
+
+\begin{principlebox}[Regla esencial]
+La plantilla organiza lo que \textbf{sé y decido antes de ejecutar}. Pi debe determinar lo que \textbf{sólo puede saberse inspeccionando el repositorio real}.
+\end{principlebox}
+
+% ============================================================
+\section{Fase 5 — Generación del ODD Execution Brief}
+
+El complemento recibe la plantilla completada y produce un único \textbf{ODD Execution Brief}.
+
+\subsection{Responsabilidad del complemento}
+
+El complemento debe:
+
+\begin{itemize}
+    \item normalizar información redundante;
+    \item preservar decisiones exactas;
+    \item separar hechos, decisiones, incertidumbres y responsabilidades de ejecución;
+    \item detectar contradicciones;
+    \item evitar inventar detalles de implementación;
+    \item explicitar fuentes de verdad;
+    \item fijar criterios de aceptación;
+    \item transferir las restricciones y permisos;
+    \item producir un handoff específico para Pi.
+\end{itemize}
+
+\subsection{Lo que no debe hacer}
+
+No debe:
+
+\begin{itemize}
+    \item programar;
+    \item afirmar que inspeccionó el repositorio si no lo hizo;
+    \item inventar rutas, clases, endpoints o tablas;
+    \item inventar comandos;
+    \item anticipar resultados PASS;
+    \item fijar una descomposición técnica rígida antes de explorar;
+    \item autorizar scope adicional;
+    \item asumir permisos Git no proporcionados.
+\end{itemize}
+
+% ============================================================
+\section{Fase 6 — Ejecución con Pi, Gentle Shell y ODD}
+
+\subsection{ODD como flujo base de ejecución}
+
+El flujo de Organic Driven Development de Gentleman sirve como base del trabajo con el agente. La explicación audiovisual de ODD que utilizo como referencia es:
+
+\begin{center}
+\href{https://www.youtube.com/watch?v=WM2JAuR-MOU}
+{\textbf{ODD — Organic Driven Development (video de referencia)}}
+\end{center}
+
+Como referencia adicional del flujo base de Gentle AI:
+
+\begin{center}
+\href{https://www.youtube.com/watch?v=-8neJsLJsXo\&t=3036s}
+{\textbf{Flujo de trabajo base de Gentle AI (video de referencia)}}
+\end{center}
+
+Mi proceso \textbf{no copia de forma literal} esos materiales. Los adapto a mi contexto universitario y a mi disciplina documental.
+
+\subsection{Cómo encaja ODD dentro de mi flujo}
+
+El handoff a Pi inicia una ejecución conceptual como:
+
+\begin{center}
+\textbf{Authorize}
+\(\rightarrow\)
+\textbf{Explore}
+\(\rightarrow\)
+\textbf{Resolve material uncertainty}
+\(\rightarrow\)
+\textbf{Classify}
+\(\rightarrow\)
+\textbf{Track if substantial}
+\(\rightarrow\)
+\textbf{Implement}
+\(\rightarrow\)
+\textbf{Check}
+\(\rightarrow\)
+\textbf{Close}
+\end{center}
+
+\subsubsection{Authorize}
+
+Pi debe respetar el alcance y los permisos del briefing. Encontrar un problema adyacente no autoriza automáticamente corregirlo.
+
+\subsubsection{Explore}
+
+Pi inspecciona el repositorio actual para descubrir:
+
+\begin{itemize}
+    \item archivos y símbolos reales;
+    \item patrones existentes;
+    \item contratos;
+    \item arquitectura efectiva;
+    \item tests/runners;
+    \item migraciones necesarias;
+    \item discrepancias entre documentación y código.
+\end{itemize}
+
+\subsubsection{Classify}
+
+Pi determina si el cambio es pequeño o sustancial.
+
+\begin{itemize}
+    \item trabajo pequeño y entendido: ejecución ligera;
+    \item trabajo sustancial: progreso recuperable mediante tracking ODD.
+\end{itemize}
+
+\subsubsection{Track if substantial}
+
+Si el trabajo es sustancial, el runtime puede crear un documento del tipo:
+
+\begin{center}
+\artifact{odd/tasks/<feature-name>.md}
+\end{center}
+
+y mantener un mirror project-scoped en Engram cuando esté disponible.
+
+Este documento \textbf{no reemplaza} la HU, el SRS ni las reglas del dominio. Es un ledger operacional de implementación.
+
+\subsubsection{Implement}
+
+Pi deriva work units desde el repositorio real. La HU sigue siendo la unidad de valor; los work units son unidades técnicas de ejecución.
+
+\subsubsection{Check}
+
+Los resultados deben demostrarse con evidencia observada: tests, build, typecheck, lint, integración, E2E, validación visual, API, datos, logs u otros checks aplicables.
+
+\subsubsection{Close}
+
+Cerrar no significa publicar automáticamente. El cierre debe declarar:
+
+\begin{itemize}
+    \item qué se implementó;
+    \item qué evidencia existe;
+    \item qué no pudo verificarse;
+    \item qué quedó fuera de alcance;
+    \item qué documentación se actualizó;
+    \item cuál es el estado Git;
+    \item cuál es el siguiente límite humano o de delivery.
+\end{itemize}
+
+% ============================================================
+\section{Test-first y verificación en mi adaptación}
+
+Para cambios de comportamiento, si existe un test significativo, ejecutable, determinista y con resultado esperado claro, favorezco:
+
+\begin{center}
+\Large\textbf{\color{PrimaryDark}RED \(\rightarrow\) GREEN \(\rightarrow\) REFACTOR}
+\end{center}
+
+Sin embargo, no fuerzo un RED artificial cuando:
+
+\begin{itemize}
+    \item el runner no está disponible;
+    \item el cambio es documental;
+    \item el comportamiento no se representa de manera útil con un test determinista;
+    \item el entorno falla antes de probar la funcionalidad;
+    \item el costo de construir el test no es proporcional al cambio.
+\end{itemize}
+
+En esos casos se requiere verificación funcional o estructural proporcional, dejando constancia honesta de lo ejecutado.
+
+% ============================================================
+\section{Documentación permanente, evidencia y trazabilidad}
+
+Una característica central de mi adaptación es que ODD no reemplaza la documentación universitaria.
+
+\subsection{Dos capas distintas}
+
+\begin{tabularx}{\textwidth}{>{\bfseries}p{0.29\textwidth}X}
+\toprule
+Capa & Propósito \\
+\midrule
+Documentación permanente &
+Describe la verdad vigente del proyecto: problema, SRS, requisitos, reglas, HUs, arquitectura, ADR, datos, UX, pruebas, trazabilidad y evidencias. \\
+Tracking operacional ODD &
+Permite recuperar el estado de implementación de una feature sustancial: tareas, progreso, evidencia observada y siguiente acción. \\
+\bottomrule
+\end{tabularx}
+
+\subsection{Regla de sincronización conceptual}
+
+Cuando una HU modifica una verdad permanente del sistema, el trabajo no está completamente terminado si la documentación conocida queda desactualizada.
+
+Por ello, al final de cada HU reviso:
+
+\begin{itemize}
+    \item requisitos afectados;
+    \item reglas;
+    \item diagramas;
+    \item arquitectura;
+    \item modelo de datos;
+    \item API/contratos;
+    \item UX;
+    \item trazabilidad;
+    \item evidencia;
+    \item documentación de sprint.
+\end{itemize}
+
+% ============================================================
+\section{Política Git y control humano}
+
+Mi flujo distingue explícitamente autorización de implementación y autorización de delivery.
+
+\begin{tabularx}{\textwidth}{>{\bfseries}p{0.29\textwidth}X}
+\toprule
+Operación & Regla \\
+\midrule
+Explorar repositorio & Permitido cuando el trabajo requiere entender la implementación. \\
+Modificar código & Sólo dentro del alcance autorizado de la HU/cambio. \\
+Commit local & Debe estar explícitamente autorizado cuando corresponda. \\
+Push & No se deduce de permiso de commit. \\
+Crear PR & Decisión separada. \\
+Merge & Decisión separada. \\
+Rebase / force push & Requiere política o autorización explícita; force push no se asume. \\
+Deployment & Siempre se trata como decisión de delivery separada. \\
+\bottomrule
+\end{tabularx}
+
+\subsection{Maintainer Review}
+
+Para cambios importantes suelo utilizar un límite humano:
+
+\begin{center}
+\textbf{IMPLEMENTATION + APPLICABLE CHECKS COMPLETE}\\
+\(\downarrow\)\\
+\textbf{PENDING MAINTAINER REVIEW}
+\end{center}
+
+En ese punto reviso el estado antes de permitir la publicación o integración cuando corresponda.
+
+% ============================================================
+\section{Matriz de responsabilidades}
+
+\begin{longtable}{>{\bfseries}p{0.21\textwidth}p{0.34\textwidth}p{0.37\textwidth}}
+\toprule
+Actor / herramienta & Responsabilidad principal & No debe sustituir \\
+\midrule
+\endfirsthead
+\toprule
+Actor / herramienta & Responsabilidad principal & No debe sustituir \\
+\midrule
+\endhead
+
+Alex / responsable &
+Decisiones de producto, alcance, prioridad, validación, riesgo aceptado y delivery. &
+La evidencia real ni la verificación técnica. \\
+
+Checklist Maestra v4 &
+Cobertura metodológica, documental, académica y de calidad. &
+El juicio contextual sobre qué elementos aplican al proyecto. \\
+
+Entrevistas, encuestas, observación, análisis &
+Producir evidencia sobre problema, necesidades y contexto. &
+Requisitos ficticios ni validaciones simuladas. \\
+
+Sprint 0 &
+Preparar la baseline técnica y organizativa para desarrollar. &
+La entrega incremental de valor durante los sprints posteriores. \\
+
+UX Pilot / Figma &
+Producir referencias visuales y apoyar la definición de pantallas/estados. &
+Las reglas de negocio ni el alcance funcional aprobado. \\
+
+Plantilla Maestra &
+Estructurar la información de la HU antes del complemento. &
+La exploración del repositorio. \\
+
+Gentle AI ODD Briefing Generator &
+Generar el ODD Execution Brief y preservar intención, aceptación y límites. &
+La implementación técnica real. \\
+
+Pi + Gentle Shell &
+Explorar, planificar desde evidencia, implementar, delegar y verificar. &
+La autoridad humana sobre scope y delivery. \\
+
+ODD tracking / Engram &
+Dar continuidad recuperable al trabajo sustancial. &
+La documentación permanente del proyecto. \\
+
+\bottomrule
+\end{longtable}
+
+% ============================================================
+\section{Trazabilidad extremo a extremo}
+
+La trazabilidad deseada puede representarse de esta forma:
+
+\begin{center}
+\begin{tikzpicture}[
+  node distance=5mm and 5mm,
+  mini/.style={
+    rectangle,
+    rounded corners=1.5mm,
+    draw=Border,
+    fill=SoftGray,
+    text width=3.0cm,
+    minimum height=0.9cm,
+    align=center,
+    font=\scriptsize\bfseries
+  },
+  arrow/.style={-{Latex[length=2mm]}, draw=PrimaryDark, thick}
+]
+\node[mini] (ev) {Evidencia};
+\node[mini, right=of ev] (hall) {Hallazgo / necesidad};
+\node[mini, right=of hall] (req) {RF/RNF/regla};
+\node[mini, right=of req] (hu) {HU + aceptación};
+
+\node[mini, below=of hu] (ux) {UX Pilot / Figma};
+\node[mini, left=of ux] (tpl) {Plantilla Maestra};
+\node[mini, left=of tpl] (brief) {ODD Execution Brief};
+\node[mini, left=of brief] (pi) {Pi / ODD};
+
+\node[mini, below=of pi] (impl) {Implementación};
+\node[mini, right=of impl] (check) {Pruebas / evidencia};
+\node[mini, right=of check] (docs) {Docs / trazabilidad};
+\node[mini, right=of docs] (review) {Review / entrega};
+
+\draw[arrow] (ev) -- (hall);
+\draw[arrow] (hall) -- (req);
+\draw[arrow] (req) -- (hu);
+\draw[arrow] (hu) -- (ux);
+\draw[arrow] (ux) -- (tpl);
+\draw[arrow] (tpl) -- (brief);
+\draw[arrow] (brief) -- (pi);
+\draw[arrow] (pi) -- (impl);
+\draw[arrow] (impl) -- (check);
+\draw[arrow] (check) -- (docs);
+\draw[arrow] (docs) -- (review);
+\end{tikzpicture}
+\end{center}
+
+Esta cadena permite responder no sólo ``qué se programó'', sino \textbf{por qué existe, qué necesidad satisface, cómo se diseñó, cómo se comprobó y qué evidencia respalda el resultado}.
+
+% ============================================================
+\section{Procedimiento operativo por cada HU}
+
+Cuando el proyecto ya superó las etapas de análisis, Sprint 0 y preparación UX, repito el siguiente microciclo:
+
+\begin{enumerate}
+    \item Seleccionar la HU priorizada.
+    \item Confirmar que sigue cumpliendo Definition of Ready.
+    \item Revisar decisiones, reglas, dependencias y referencias visuales.
+    \item Completar la Plantilla Maestra con el contexto específico.
+    \item Enviar la plantilla al complemento.
+    \item Revisar el ODD Execution Brief generado.
+    \item Entregar el briefing a Pi en el repositorio correcto.
+    \item Permitir que Pi explore antes de fijar archivos/tasks/commands.
+    \item Resolver únicamente decisiones humanas realmente bloqueantes.
+    \item Implementar con work units derivados del repositorio.
+    \item Aplicar test-first cuando sea significativo y ejecutable.
+    \item Ejecutar checks proporcionales.
+    \item Generar/organizar evidencias.
+    \item Actualizar documentación permanente y trazabilidad.
+    \item Llegar a la condición de revisión definida.
+    \item Autorizar, si corresponde, push/PR/merge/deployment por separado.
+    \item Pasar a la siguiente HU o registrar cambios en backlog.
+\end{enumerate}
+
+% ============================================================
+\section{Cómo adapto el flujo base de Gentleman}
+
+Mi adaptación agrega una capa previa y una capa documental posterior alrededor de ODD.
+
+\begin{tabularx}{\textwidth}{>{\bfseries}p{0.31\textwidth}XX}
+\toprule
+Aspecto & Flujo base ODD / Gentle & Mi adaptación personal \\
+\midrule
+Inicio &
+Describir un outcome autorizado y explorar el código. &
+Antes del outcome existe una baseline de problema, evidencia, necesidades, requisitos, backlog y HU. \\
+
+Diseño inicial &
+Se deriva del contexto y del repositorio. &
+Añado Sprint 0 para establecer una base técnica mínima antes de iniciar las HUs. \\
+
+UX &
+Depende del proyecto/contexto. &
+Genero referencias de pantallas con UX Pilot en Figma antes de implementar HUs visuales. \\
+
+Handoff &
+Petición al agente. &
+Uso una Plantilla Maestra y un complemento que transforma la HU en un ODD Execution Brief. \\
+
+Plan técnico &
+El agente explora y deriva el trabajo. &
+Mantengo este principio: el complemento no inventa el plan técnico. \\
+
+Tracking &
+Sólo cuando el trabajo es sustancial. &
+Lo mantengo separado de HUs/SRS; ODD tracking es operacional. \\
+
+Verificación &
+Checks aplicables y evidencia observada. &
+La conecto explícitamente con DoD, documentación, evidencia académica y trazabilidad. \\
+
+Cierre &
+Resultado técnico y siguiente acción. &
+Puedo añadir Maintainer Review antes de cualquier delivery remoto. \\
+\bottomrule
+\end{tabularx}
+
+% ============================================================
+\section{Antipatrones que evito}
+
+\begin{itemize}
+    \item Programar antes de comprender el problema.
+    \item Inventar entrevistas, encuestas, usuarios, resultados o validaciones.
+    \item Convertir cada sugerencia de un stakeholder en un requisito.
+    \item Diseñar pantallas sin reglas o flujo suficientemente claros.
+    \item Usar una imagen de Figma como contrato funcional completo.
+    \item Pedir al complemento que invente el repositorio.
+    \item Predefinir tareas técnicas sin inspeccionar código real.
+    \item Permitir que Pi expanda alcance por iniciativa propia.
+    \item Confundir tracking ODD con documentación permanente.
+    \item Marcar una HU Done con documentación conocida como desactualizada.
+    \item Tratar un fallo ambiental como fallo funcional sin evidencia.
+    \item Considerar commit, push, PR, merge y deployment como una única autorización.
+    \item Utilizar tests sólo para acumular cantidad sin demostrar comportamiento.
+    \item Mantener diagramas/renders desincronizados de sus fuentes editables.
+\end{itemize}
+
+% ============================================================
+\section{Ejemplo resumido de aplicación}
+
+Supongamos una HU de importación CSV.
+
+\begin{enumerate}
+    \item Durante relevamiento se descubre que el registro manual masivo consume tiempo y produce errores.
+    \item El hallazgo se convierte en necesidad y luego en requisito.
+    \item El backlog crea una HU de importación.
+    \item Sprint 0 ya dejó frontend, backend, persistencia y tests base disponibles.
+    \item UX Pilot genera la referencia de selección de archivo, preview, errores y resultado.
+    \item La HU se completa con reglas de campos, duplicados, permisos y atomicidad.
+    \item La Plantilla Maestra especifica scope, non-goals, sources of truth, acceptance y evidencia.
+    \item El complemento genera el ODD Execution Brief.
+    \item Pi explora el repositorio para localizar validadores, patrones de upload, API, transacciones y test runners reales.
+    \item Si el trabajo es sustancial, crea tracking ODD.
+    \item Implementa por work units y verifica.
+    \item Se producen evidencias y se actualiza la HU, requisitos, API/arquitectura si corresponde y trazabilidad.
+    \item Se detiene en Maintainer Review si esa es la política configurada.
+\end{enumerate}
+
+Lo importante es que ninguna capa trabaja aislada: cada paso consume decisiones previas y produce evidencia o conocimiento para el siguiente.
+
+% ============================================================
+\section{Regla maestra de calidad de mi flujo}
+
+Antes de considerar que una HU o un incremento está realmente terminado, debo poder responder:
+
+\begin{itemize}
+    \item ¿Qué problema o necesidad justifica el cambio?
+    \item ¿Qué fuente respalda esa necesidad?
+    \item ¿Qué requisito/regla/HU autoriza la implementación?
+    \item ¿Qué parte estaba dentro y fuera del alcance?
+    \item ¿Qué referencia UX debía respetarse?
+    \item ¿Qué descubrió Pi al explorar el repositorio?
+    \item ¿Qué se implementó realmente?
+    \item ¿Qué checks se ejecutaron y con qué resultado?
+    \item ¿Qué no pudo verificarse y por qué?
+    \item ¿Qué evidencia existe?
+    \item ¿Qué documentación quedó actualizada?
+    \item ¿Cuál es el estado Git real?
+    \item ¿Qué decisión humana falta, si existe?
+\end{itemize}
+
+Si estas preguntas no pueden responderse con claridad, el flujo todavía tiene una ruptura de trazabilidad o de evidencia.
+
+% ============================================================
+\section{Referencias}
+
+\subsection*{Fuentes propias del flujo}
+
+\begin{itemize}
+    \item \textbf{Checklist Maestra Universal para Proyectos Universitarios de Software v4}. Base metodológica y documental utilizada por el responsable.
+    \item \textbf{Plantilla Maestra de Prompt — Gentle AI ODD Briefing Generator}. Interfaz de preparación de contexto por HU.
+    \item \textbf{Gentle AI ODD Briefing Generator}. Complemento personal utilizado para construir el handoff para Pi.
+\end{itemize}
+
+\subsection*{Referencias de Gentleman}
+
+\begin{itemize}
+    \item Organic Driven Development (ODD):\\
+    \url{https://www.youtube.com/watch?v=WM2JAuR-MOU}
+    \item Flujo de trabajo base de Gentle AI:\\
+    \url{https://www.youtube.com/watch?v=-8neJsLJsXo&t=3036s}
+    \item \href{https://github.com/Gentleman-Programming/gentle-ai/blob/main/docs/intended-usage.md}{Gentle AI — Intended Usage}
+    \item \href{https://github.com/Gentleman-Programming/gentle-ai/blob/main/docs/pi.md}{Gentle AI — Pi integration}
+    \item \href{https://github.com/Gentleman-Programming/gentle-shell}{Gentle Shell}
+\end{itemize}
+
+\begin{notebox}[Alcance de estas referencias]
+Los videos y la documentación de Gentleman explican el flujo base de ODD/Gentle AI/Gentle Shell. El proceso descrito en este documento es una \textbf{adaptación personal de \responsable}: incorpora la Checklist Maestra, un Sprint 0 propio, UX Pilot/Figma, la Plantilla Maestra y el complemento de briefings antes de la ejecución con Pi.
+\end{notebox}
+
+% ============================================================
+\appendix
+\section{Checklist compacta del flujo completo}
+
+\begin{enumerate}
+    \item[\(\square\)] Revisar consigna/rúbrica y gobierno del proyecto.
+    \item[\(\square\)] Comprender situación actual y problema.
+    \item[\(\square\)] Obtener evidencia real.
+    \item[\(\square\)] Consolidar hallazgos y necesidades.
+    \item[\(\square\)] Definir objetivos, alcance y MVP.
+    \item[\(\square\)] Crear SRS, RF, RNF y reglas.
+    \item[\(\square\)] Crear backlog, épicas, HUs y aceptación.
+    \item[\(\square\)] Alcanzar DoR suficiente.
+    \item[\(\square\)] Completar Sprint 0 técnico.
+    \item[\(\square\)] Generar referencias UX Pilot/Figma.
+    \item[\(\square\)] Seleccionar HU priorizada.
+    \item[\(\square\)] Completar Plantilla Maestra.
+    \item[\(\square\)] Generar ODD Execution Brief con el complemento.
+    \item[\(\square\)] Entregar briefing a Pi/Gentle Shell.
+    \item[\(\square\)] Explorar repositorio y resolver incertidumbres reales.
+    \item[\(\square\)] Clasificar small/substantial.
+    \item[\(\square\)] Crear tracking ODD sólo si corresponde.
+    \item[\(\square\)] Implementar por work units.
+    \item[\(\square\)] Ejecutar test-first cuando aplique.
+    \item[\(\square\)] Ejecutar verificación proporcional.
+    \item[\(\square\)] Organizar evidencia.
+    \item[\(\square\)] Actualizar documentación/trazabilidad.
+    \item[\(\square\)] Llegar a Maintainer Review si está configurado.
+    \item[\(\square\)] Autorizar delivery remoto por separado.
+    \item[\(\square\)] Registrar review/retrospectiva y continuar el backlog.
+\end{enumerate}
+
+\vfill
+
+\begin{center}
+\small
+\textbf{Responsable: \responsable}\\
+Documento de flujo operativo personal para proyectos universitarios de software.
+\end{center}
+
+\end{document}
