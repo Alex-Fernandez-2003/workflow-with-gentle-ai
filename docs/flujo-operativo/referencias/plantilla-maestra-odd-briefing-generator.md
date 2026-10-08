@@ -197,7 +197,10 @@ Define qué fuente manda para cada dimensión.
 
 ## Visual References
 
-- `[MOCKUP / CAPTURA / ZIP / FIGMA / IMAGEN]`
+- Referencia editable aprobada: `[URL de página/frame + versión exacta + estado + responsable/fecha]`.
+- PNG inicial/mejorado/refinado: `[etapa + viewport + archivo/enlace]`; son referencias intermedias, no el master editable.
+- Fuentes realmente consultadas: `[owner/repo + rama/commit + rutas + assets]` o `[no disponible / límite de acceso]`.
+- Guía canónica del procedimiento: [Flujo de referencias visuales UX](../../ux/flujo-referencias-visuales.md); este briefing sólo enlaza y resume la referencia necesaria para esta HU.
 
 ## Conflict Rule
 
@@ -207,7 +210,7 @@ Ejemplo:
 
 `Si documentación y código difieren, Pi debe distinguir intended behavior de current implementation en lugar de asumir que uno describe al otro.`
 
-Las imágenes NO amplían automáticamente el scope.
+Las reglas funcionales aprobadas prevalecen ante cualquier conflicto visual. Para diseño, identidad/assets oficiales y tokens/kit del proyecto, junto con el master editable y las pantallas aprobadas, prevalecen sobre PNG intermedios o referencias inspiracionales. Pi inspecciona por separado el código, contratos y pruebas; ni una imagen ni un frame prueban implementación. Un PNG plano no es editable y un componente de Figma no es un componente frontend.
 
 ---
 
@@ -574,6 +577,14 @@ Referencias visuales:
 
 - `[IMAGEN / ZIP / FIGMA]`
 
+Referencia maestra editable aprobada (frame/versión exacta, responsable y fecha):
+
+`[URL / DESCONOCIDA / NO APLICA]`
+
+PNG inicial/mejorado y viewport(s):
+
+`[ETAPA + ARCHIVO/ENLACE + VIEWPORT / DESCONOCIDO / NO APLICA]`
+
 Mobile:
 
 `[EXPECTATIVA]`
@@ -603,7 +614,7 @@ Reglas de preservación:
 - `[MANTENER INTERACCIONES]`
 - `[ACCESIBILIDAD]`
 
-Las referencias visuales no crean features que no estén autorizadas.
+Las referencias visuales no crean features que no estén autorizadas. La [guía UX](../../ux/flujo-referencias-visuales.md) es la fuente del procedimiento completo; aquí sólo se identifican las referencias y límites de esta HU. Distingue capas editables de componentes reutilizables y de componentes frontend; Pi debe verificar el código de forma independiente.
 
 ---
 
@@ -764,9 +775,9 @@ Documentos que deben actualizarse si la implementación cambia su verdad:
 - `[README/deployment docs]`
 - `[otro]`
 
-No generar documentación irrelevante por ceremonia.
+No generar documentación irrelevante por ceremonia. Enlazar el master editable y su aprobación en la HU/documentación UX vigente cuando sean relevantes; no copiar el procedimiento entero ni crear referencias divergentes.
 
-La documentación permanente NO se reemplaza por tracking operativo ODD.
+La documentación permanente NO se reemplaza por tracking operacional ODD.
 
 ---
 
@@ -781,6 +792,9 @@ Evidencia requerida:
 - `[API evidence]`
 - `[migration evidence]`
 - `[manual checklist]`
+- Para UX, si aplica: `[frame/versión editable + responsable/fecha de aprobación; PNG por etapa/viewport; fuentes, repo/rama/commit, rutas y assets realmente consultados; límites y pendientes]`.
+
+No afirmar acceso a GitHub/archivos ni editabilidad que no se haya comprobado. Una captura plana no es evidencia de diseño editable ni de implementación frontend.
 
 Resolución/tamaño/formato requerido, si aplica:
 
