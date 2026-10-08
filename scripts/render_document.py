@@ -1,4 +1,4 @@
-"""Build the personal workflow PDF and its two repository previews."""
+"""Build the personal workflow PDF, cover, and two diagram previews."""
 
 from __future__ import annotations
 
@@ -60,6 +60,38 @@ def workflow_page_number(pages: Sequence[str]) -> int:
     if len(matches) != 1:
         raise RenderError(
             "No se pudo identificar una única página del diagrama en el texto del PDF "
+            f"(coincidencias: {matches or 'ninguna'}). Revise los marcadores del documento."
+        )
+    return matches[0]
+
+
+def ux_diagram_page_number(pages: Sequence[str]) -> int:
+    """Find the UX diagram from its node labels, not its repeated heading or section text."""
+    markers = (
+        "ux pilot/figma",
+        "propuesta",
+        "inicial",
+        "png inicial",
+        "viewport",
+        "chatgpt",
+        "github + assets",
+        "master",
+        "editable aprobado",
+        "otras",
+        "pantallas",
+        "hace falta",
+        "refinar",
+        "referencias aprobadas",
+        "hu/brief/evidencia para pi",
+    )
+    matches = [
+        index
+        for index, page in enumerate(pages, start=1)
+        if all(marker in _fold_text(page) for marker in markers)
+    ]
+    if len(matches) != 1:
+        raise RenderError(
+            "No se pudo identificar una única página del diagrama del ciclo UX "
             f"(coincidencias: {matches or 'ninguna'}). Revise los marcadores del documento."
         )
     return matches[0]
@@ -173,7 +205,9 @@ def _warnings(output: str) -> list[str]:
     ]
 
 
-def render(output_directory: Path) -> tuple[Path, Path, Path, int, int, list[str]]:
+def render(
+    output_directory: Path,
+) -> tuple[Path, Path, Path, Path, int, int, int, list[str]]:
     tools = missing_tools()
     if tools:
         raise RenderError(
@@ -197,19 +231,30 @@ def render(output_directory: Path) -> tuple[Path, Path, Path, int, int, list[str
 
         pdf_path, passes, compile_output = _compile(source, build_directory)
         extracted_text = _run(("pdftotext", "-enc", "UTF-8", "-layout", str(pdf_path), "-")).stdout
-        page_number = workflow_page_number(extracted_text.split("\f"))
+        pages = extracted_text.split("\f")
+        page_number = workflow_page_number(pages)
+        ux_page_number = ux_diagram_page_number(pages)
         shutil.copyfile(pdf_path, publish_directory / PDF_NAME)
         _make_preview(pdf_path, publish_directory / "portada", 1)
+
         diagram_name = f"diagrama-flujo-operativo-pagina-{page_number:02d}.png"
         _make_preview(
             pdf_path,
             publish_directory / Path(diagram_name).with_suffix(""),
             page_number,
         )
+        ux_diagram_name = (
+            f"diagrama-ciclo-referencias-visuales-pagina-{ux_page_number:02d}.png"
+        )
+        _make_preview(
+            pdf_path,
+            publish_directory / Path(ux_diagram_name).with_suffix(""),
+            ux_page_number,
+        )
 
-        expected = (PDF_NAME, COVER_NAME, diagram_name)
+        expected = (PDF_NAME, COVER_NAME, diagram_name, ux_diagram_name)
         if any(not (publish_directory / name).is_file() for name in expected):
-            raise RenderError("No se completaron los tres artefactos; no se publicaron archivos.")
+            raise RenderError("No se completaron los cuatro artefactos; no se publicaron archivos.")
 
         output_directory.mkdir(parents=True, exist_ok=True)
         for name in expected:
@@ -219,8 +264,10 @@ def render(output_directory: Path) -> tuple[Path, Path, Path, int, int, list[str
     return (
         output_directory / PDF_NAME,
         output_directory / COVER_NAME,
-        output_directory / f"diagrama-flujo-operativo-pagina-{page_number:02d}.png",
+        output_directory / diagram_name,
+        output_directory / ux_diagram_name,
         page_number,
+        ux_page_number,
         passes,
         warnings,
     )
@@ -230,18 +277,27 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description=(
             "Compila el flujo operativo personal y publica únicamente el PDF, "
-            "la portada y la página del diagrama detectada en el texto del PDF."
+            "la portada y las dos páginas de diagramas detectadas en el texto del PDF."
         )
     )
     parser.add_argument(
         "--output-dir",
         required=True,
         metavar="DIRECTORIO",
-        help="directorio de salida; los tres artefactos con nombres conocidos se reemplazan",
+        help="directorio de salida; los cuatro artefactos con nombres conocidos se reemplazan",
     )
     arguments = parser.parse_args(argv)
     try:
-        pdf, cover, diagram, page_number, passes, warnings = render(Path(arguments.output_dir))
+        (
+            pdf,
+            cover,
+            diagram,
+            ux_diagram,
+            page_number,
+            ux_page_number,
+            passes,
+            warnings,
+        ) = render(Path(arguments.output_dir))
     except RenderError as error:
         print(f"Error de renderizado: {error}", file=sys.stderr)
         return 1
@@ -249,6 +305,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     print(f"PDF: {pdf}")
     print(f"Portada: {cover}")
     print(f"Diagrama (página física {page_number}): {diagram}")
+    print(f"Ciclo UX (página física {ux_page_number}): {ux_diagram}")
     print(f"Pasadas de pdfLaTeX: {passes} (referencias estables)")
     if warnings:
         print(f"Avisos LaTeX observados en la última pasada: {len(warnings)}")

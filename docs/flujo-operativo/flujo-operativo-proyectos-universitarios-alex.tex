@@ -213,7 +213,7 @@ Mi flujo combina cuatro elementos principales:
 \begin{enumerate}
     \item la \textbf{Checklist Maestra Universal para Proyectos Universitarios de Software v4} como marco de análisis, documentación, trazabilidad y control de calidad;
     \item un \textbf{Sprint 0} personal como transición entre el análisis/documentación y el inicio técnico del producto;
-    \item \textbf{UX Pilot dentro de Figma} para producir referencias visuales de las pantallas antes de implementar las historias de usuario;
+    \item un ciclo de referencias visuales con \textbf{UX Pilot/Figma, PNG y ChatGPT}, que culmina en un master editable comparado y aprobado por una persona antes de orientar pantallas posteriores;
     \item el ecosistema \textbf{Gentle AI + Gentle Shell + Pi}, utilizando Organic Driven Development (ODD) y mi complemento \textbf{Gentle AI ODD Briefing Generator} para transformar cada HU preparada en un handoff de ejecución preciso.
 \end{enumerate}
 
@@ -268,22 +268,25 @@ Es el marco de cobertura del proyecto. La utilizo para evitar comenzar a program
     \item seguimiento, trazabilidad, validación y evidencias.
 \end{itemize}
 
-\subsection{UX Pilot en Figma}
+\subsection{Ciclo de referencias visuales con UX Pilot/Figma y ChatGPT}
 
-UX Pilot lo incorporo como herramienta de \textbf{preparación visual}. Una vez que el problema, requisitos, alcance y base técnica están suficientemente establecidos, lo utilizo dentro de Figma para generar referencias de las pantallas.
+Después de Checklist, investigación, requisitos/reglas y Sprint 0, UX Pilot en Figma produce una primera pantalla desde el contexto funcional confirmado. Se exporta a PNG y se entrega a ChatGPT junto con el repositorio GitHub, documentación, frontend, assets y referencias que sean \textbf{realmente accesibles}. ChatGPT devuelve un PNG mejorado; si no puede consultar una fuente o generar la imagen, debe declarar el límite, no simular acceso ni una salida.
 
-Estas referencias sirven para:
+La imagen mejorada se reconstruye como elementos editables en UX Pilot/Figma. Se verifica que no sea sólo un PNG aplanado, se compara con la función y la identidad aprobadas y una persona aprueba explícitamente el frame/versión editable. Sólo entonces sirve como master visual para las pantallas posteriores. La persona responsable registra versión, fecha y aprobación; nombres de controles y capacidades concretas dependen de la versión disponible de las herramientas.
+
+Las pantallas posteriores se diseñan con el sistema aprobado —marca, tokens, tipografía y componentes— pero con composición adecuada a su objetivo. Un refinamiento de una pantalla posterior es \textbf{opcional}: sólo responde a una necesidad concreta y repite PNG contextual, reconstrucción editable, revisión y aprobación antes de reintegrar esa pantalla.
 
 \begin{itemize}
-    \item traducir requisitos y flujos a una intención visual concreta;
-    \item visualizar pantallas clave antes de implementarlas;
-    \item reducir ambigüedad en estados, jerarquía visual y responsive;
-    \item alimentar el contexto de la HU;
-    \item permitir que Pi tenga una referencia visual explícita durante la implementación.
+    \item \textbf{Función}: la HU vigente, sus criterios, reglas y decisiones humanas aprobadas prevalecen ante cualquier conflicto visual. La imagen no crea acciones, datos, estados ni alcance.
+    \item \textbf{Identidad y diseño}: identidad/assets oficiales y tokens/kit del proyecto, junto con el master editable y pantallas aprobadas, prevalecen sobre PNG intermedios o referencias inspiracionales.
+    \item \textbf{Editabilidad}: capas editables y componentes reutilizables de Figma son evidencia del diseño, no componentes frontend. Pi inspecciona por separado código, contratos, pruebas y documentación.
+    \item \textbf{Evidencia}: conservar los PNG por etapa/viewport, frame y versión aprobados, responsable/fecha y las fuentes y rutas consultadas de verdad.
 \end{itemize}
 
+La \href{https://github.com/Alex-Fernandez-2003/workflow-with-gentle-ai/blob/docs/workflow-showcase/docs/ux/flujo-referencias-visuales.md}{guía canónica del ciclo visual} desarrolla el procedimiento. Para solicitar el PNG se copia la \href{https://github.com/Alex-Fernandez-2003/workflow-with-gentle-ai/blob/docs/workflow-showcase/docs/ux/plantilla-chatgpt-mejora-referencias-visuales.md}{plantilla autónoma de ChatGPT}; el prompt no sustituye la reconstrucción ni la aprobación humana.
+
 \begin{warningbox}[Límite importante]
-Una referencia de UX Pilot/Figma es una \textbf{fuente de intención visual}, no una autorización automática para ampliar el alcance funcional. Si una imagen muestra elementos decorativos, datos ficticios o funciones no aprobadas, esos elementos no se convierten por sí solos en requisitos.
+Una referencia UX, incluso un master editable aprobado, es una \textbf{autoridad visual complementaria}, no una especificación funcional ni prueba de implementación. Una captura plana no es editable; una pantalla estática no certifica interacción, responsive, accesibilidad o comportamiento del frontend.
 \end{warningbox}
 
 \subsection{Gentle AI ODD Briefing Generator}
@@ -315,7 +318,7 @@ El briefing debe transmitir, cuando corresponda:
 
 \subsection{Pi y Gentle Shell}
 
-Pi es el agente con el que ejecuto el trabajo sobre el repositorio. Gentle Shell proporciona el entorno/orquestación específico de Pi y aplica el flujo ODD, delegación, memoria y controles correspondientes.
+Pi es el agente con el que ejecuto el trabajo sobre el repositorio. Gentle Shell proporciona el entorno/orquestación específico de Pi y aplica el flujo ODD, delegación, memoria y controles correspondientes. Aunque reciba una referencia aprobada, Pi verifica de forma independiente el estado actual de código, contratos, pruebas y documentación; ni el PNG ni Figma demuestran implementación.
 
 En mi modelo:
 
@@ -328,6 +331,7 @@ En mi modelo:
 Esta separación es fundamental para evitar que el briefing invente archivos, clases, endpoints, runners o una arquitectura que todavía no fue comprobada en el código.
 
 % ============================================================
+\clearpage
 \section{Vista general de mi flujo operativo}
 
 \begin{center}
@@ -348,7 +352,7 @@ Esta separación es fundamental para evitar que el briefing invente archivos, cl
 \node[box] (p1) {1. Descubrimiento y documentación con la Checklist Maestra v4};
 \node[box, below=of p1] (p2) {2. Consolidación: necesidades, alcance, SRS, reglas, backlog, HU y DoR};
 \node[box, below=of p2] (p3) {3. Sprint 0: baseline técnica para poder comenzar el software};
-\node[box, below=of p3] (p4) {4. UX Pilot en Figma: referencias visuales de pantallas y estados};
+\node[box, below=of p3] (p4) {4. Ciclo UX Pilot/Figma: PNG, mejora contextual y master editable aprobado (ver ciclo visual)};
 \node[box, below=of p4] (p5) {5. Selección/refinamiento de HU + Plantilla Maestra ODD};
 \node[box, below=of p5] (p6) {6. Complemento Gentle AI ODD Briefing Generator: ODD Execution Brief};
 \node[box, below=of p6] (p7) {7. Pi + Gentle Shell: explorar → clasificar → implementar → verificar};
@@ -472,43 +476,110 @@ Dependiendo del proyecto, mi Sprint 0 puede incluir:
 El Sprint 0 debe ser suficiente para habilitar el desarrollo incremental, no una excusa para construir una plataforma completa antes de entregar valor. La arquitectura se prepara hasta el nivel necesario para que el desarrollo por HUs sea viable y coherente.
 \end{notebox}
 
+\clearpage
+\section*{Ciclo de referencias visuales}
+\addcontentsline{toc}{section}{Ciclo de referencias visuales}
+\begingroup
+\singlespacing
+\begin{center}
+\begin{tikzpicture}[
+  uxnode/.style={
+    rectangle, rounded corners=2mm, draw=Primary, fill=SoftPurple,
+    text width=4.15cm, minimum height=0.82cm, inner sep=2.5pt,
+    align=center, font=\small\bfseries
+  },
+  uxwide/.style={uxnode, text width=4.2cm},
+  uxdecision/.style={
+    diamond, aspect=2.0, draw=PrimaryDark, fill=SoftGray,
+    text width=2.7cm, inner sep=1pt, align=center, font=\small\bfseries
+  },
+  uxoutput/.style={uxnode, text width=4.9cm, draw=PrimaryDark, fill=SoftGray},
+  optional/.style={uxnode, draw=Accent, fill=Accent!8},
+  optionalwide/.style={optional, text width=4.35cm},
+  arrow/.style={-{Latex[length=2mm]}, thick, draw=PrimaryDark},
+  optionalarrow/.style={-{Latex[length=2mm]}, thick, draw=Accent, dashed}
+]
+\node[uxwide] (contexto) at (0,0) {HU + CA, rol, reglas,\\marca y contexto};
+\node[uxnode] (inicio) at (-5.6,-1.7) {UX Pilot/Figma: propuesta\\inicial};
+\node[uxnode] (pnginicial) at (0,-1.7) {PNG inicial + viewport};
+\node[uxwide] (chatgpt) at (5.6,-1.7) {ChatGPT + GitHub + assets};
+\node[uxwide] (pngmejorado) at (5.6,-3.4) {PNG mejorado};
+\node[uxwide] (reconstruccion) at (0,-3.4) {Reconstrucción editable\\verificada en UX Pilot/Figma};
+\node[uxwide] (revision) at (-5.6,-3.4) {Revisión humana: función,\\marca y editabilidad};
+\node[uxdecision] (aprobacion) at (0,-5.3) {¿Master editable aprobado?};
+\node[uxwide] (corregir) at (-5.6,-5.3) {No: corregir/reconstruir\\y volver a validar};
+\node[uxwide] (master) at (5.6,-5.3) {Referencia maestra editable aprobada};
+\node[uxdecision] (maspantallas) at (0,-8.3) {¿Otras pantallas?};
+\node[uxwide] (sinpantallas) at (-5.6,-8.3) {No: conservar el master;\\sin vistas nuevas};
+\node[uxwide] (pantallas) at (5.6,-8.3) {Sí: UX Pilot crea vistas\\con el sistema aprobado};
+\node[uxdecision] (refinar) at (5.6,-10.3) {¿Hace falta refinar?};
+\node[optionalwide] (refinamientopaso) at (5.6,-12.4) {Sí: Refinamiento opcional:\\elegir vista y exportar PNG};
+\node[optionalwide] (chatgptactual) at (5.6,-14.05) {ChatGPT + contexto real\\del proyecto y assets};
+\node[optional] (pngrefinado) at (5.6,-15.7) {PNG refinado};
+\node[optionalwide] (reconstruccionrefinada) at (5.6,-17.35) {Reconstrucción editable\\verificada en UX Pilot/Figma};
+\node[optionalwide] (aprobacionpantalla) at (5.6,-19.0) {Validar, corregir y aprobar\\la versión exacta};
+\node[uxoutput] (handoffvisual) at (0,-21.05) {Referencias aprobadas +\\HU/brief/evidencia para Pi};
+
+\draw[arrow] (contexto.south) -- (inicio.north);
+\draw[arrow] (inicio.east) -- (pnginicial.west);
+\draw[arrow] (pnginicial.east) -- (chatgpt.west);
+\draw[arrow] (chatgpt.south) -- (pngmejorado.north);
+\draw[arrow] (pngmejorado.west) -- (reconstruccion.east);
+\draw[arrow] (reconstruccion.west) -- (revision.east);
+\draw[arrow] (revision.east) -- (aprobacion.west);
+\draw[arrow] (aprobacion.west) -- (corregir.east);
+\draw[arrow] (corregir.north) -- (revision.south);
+\draw[arrow] (aprobacion.east) -- node[above,font=\footnotesize\bfseries]{Sí} (master.west);
+\draw[arrow] (master.south) -- (maspantallas.north);
+\draw[arrow] (maspantallas.west) -- (sinpantallas.east);
+\draw[arrow] (maspantallas.east) -- (pantallas.west);
+\draw[arrow] (pantallas.south) -- (refinar.north);
+\draw[optionalarrow] (refinar.south) -- (refinamientopaso.north);
+\draw[arrow] (sinpantallas.west) -- ++(-0.2,0) |- (handoffvisual.west);
+\coordinate (sinrefinamiento) at (2.7,-10.3);
+\draw[optionalarrow] (refinar.west) -- node[above,font=\footnotesize\bfseries]{No} (sinrefinamiento) |- (handoffvisual.east);
+\draw[optionalarrow] (refinamientopaso.south) -- (chatgptactual.north);
+\draw[optionalarrow] (chatgptactual.south) -- (pngrefinado.north);
+\draw[optionalarrow] (pngrefinado.south) -- (reconstruccionrefinada.north);
+\draw[optionalarrow] (reconstruccionrefinada.south) -- (aprobacionpantalla.north);
+\draw[optionalarrow] (aprobacionpantalla.south) |- (handoffvisual.east);
+\end{tikzpicture}
+\end{center}
+
+\begin{center}
+\begin{minipage}{0.96\textwidth}
+\centering\footnotesize Flechas sólidas: ciclo fundacional; punteadas: refinamiento opcional. La HU manda en función y el PNG plano no es editable ni prueba de implementación. Procedimiento: \href{https://github.com/Alex-Fernandez-2003/workflow-with-gentle-ai/blob/docs/workflow-showcase/docs/ux/flujo-referencias-visuales.md}{guía UX}; prompt: \href{https://github.com/Alex-Fernandez-2003/workflow-with-gentle-ai/blob/docs/workflow-showcase/docs/ux/plantilla-chatgpt-mejora-referencias-visuales.md}{plantilla de ChatGPT}.
+\end{minipage}
+\end{center}
+\endgroup
+\clearpage
+
 % ============================================================
 \section{Fase 3 — Diseño visual con UX Pilot en Figma}
 
-Después del Sprint 0 preparo la referencia visual de las pantallas.
+Después del Sprint 0 preparo y apruebo referencias visuales de la pantalla que aporte valor a una HU. El orden es deliberado: UX Pilot recibe un proyecto con problema, alcance, reglas, roles y contexto suficiente; no se diseñan pantallas para reemplazar análisis o crear requisitos.
 
-El orden es deliberado: UX Pilot recibe un proyecto que ya tiene problema, alcance, reglas, actores y una base técnica suficientemente comprendida. De esa manera, el diseño visual se apoya en decisiones previamente justificadas.
+\subsection{Ruta visual, autoridad y aprobación}
 
-\subsection{Qué espero obtener}
+El ciclo visual tiene una fuente canónica independiente y no se duplica aquí. Como resumen operativo:
 
-Para las pantallas relevantes procuro cubrir:
+\begin{enumerate}
+    \item UX Pilot/Figma crea una primera propuesta desde la HU, rol, CA, reglas, marca y contexto confirmado; se exporta el PNG inicial con su viewport.
+    \item Se solicita a ChatGPT un PNG mejorado y se aportan GitHub, documentación, frontend, assets y referencias que estén realmente disponibles. Se registran repo, rama/commit y rutas consultadas; las limitaciones se declaran y no se inventa acceso.
+    \item La imagen mejorada se reconstruye en UX Pilot/Figma con capas editables; se inspecciona que no sea sólo una imagen aplanada y se verifican textos, formas, estilos y componentes cuando correspondan.
+    \item Una persona compara la función, el PNG inicial/mejorado y la reconstrucción; corrige lo necesario y aprueba explícitamente el frame/versión editable, responsable y fecha. Sin esa aprobación no existe master.
+    \item Las pantallas posteriores solicitadas por el backlog siguen marca, tokens, tipografía y componentes aprobados, pero usan composición apropiada a su objetivo funcional. El refinamiento dirigido posterior es opcional y vuelve a requerir PNG, reconstrucción editable y aprobación.
+\end{enumerate}
 
-\begin{itemize}
-    \item flujo principal;
-    \item pantallas clave;
-    \item navegación;
-    \item estados de carga;
-    \item estados vacíos;
-    \item errores;
-    \item confirmaciones;
-    \item feedback al usuario;
-    \item responsive cuando corresponda;
-    \item accesibilidad básica;
-    \item consistencia visual entre pantallas relacionadas.
-\end{itemize}
+La autoridad se aplica por dimensión. La HU vigente, los CA, las reglas y las decisiones humanas prevalecen sobre un conflicto visual. Para diseño prevalecen identidad y assets oficiales, tokens/kit del proyecto y pantallas/master editables aprobados sobre PNG intermedios o referencias inspiracionales. Una composición no autoriza nuevos controles, datos, permisos, estados ni funciones. ChatGPT declara únicamente fuentes que haya consultado; Pi inspecciona por separado la realidad de código, contratos y pruebas.
 
-\subsection{Cómo se utilizan después}
+\subsection{Qué se verifica y qué no demuestra una imagen}
 
-Las capturas/referencias de Figma se incorporan como contexto de la HU. El briefing debe declarar explícitamente qué partes son:
+Antes de aprobar, reviso fidelidad funcional, rol, CA, estados, marca y proporciones del logo, tipografía, color, contraste, jerarquía, recortes, legibilidad y consistencia de componentes/tokens. Verifico los viewports requeridos y el nivel de editabilidad del archivo. Un componente de Figma no es un componente frontend; un PNG o frame estático no certifica accesibilidad, interacción, responsive, comportamiento ni implementación. Esos aspectos requieren comprobaciones apropiadas en prototipo, dispositivo, navegador, código o pruebas.
 
-\begin{itemize}
-    \item comportamiento funcional obligatorio;
-    \item referencia visual;
-    \item dato de ejemplo;
-    \item elemento fuera de alcance.
-\end{itemize}
+\subsection{Handoff visual a la HU}
 
-Así evito que Pi interprete una maqueta como si fuera una especificación funcional completa.
+El briefing diferencia función obligatoria, referencia visual, datos ficticios y exclusiones. Enlaza HU/CA/rol/estado, frame y versión exactos del master, responsable y fecha de aprobación, PNG inicial y mejorado por etapa/viewport, fuentes/assets realmente consultados y límites de acceso, estado de editabilidad y verificaciones pendientes. Pi debe inspeccionar el código por su cuenta y seguir la HU y sus reglas; el material visual orienta, pero no prueba implementación. La \href{https://github.com/Alex-Fernandez-2003/workflow-with-gentle-ai/blob/docs/workflow-showcase/docs/ux/flujo-referencias-visuales.md}{guía del ciclo UX} y la \href{https://github.com/Alex-Fernandez-2003/workflow-with-gentle-ai/blob/docs/workflow-showcase/docs/ux/plantilla-chatgpt-mejora-referencias-visuales.md}{plantilla de ChatGPT} contienen el procedimiento y el prompt completos.
 
 % ============================================================
 \section{Fase 4 — Preparación de la HU}
@@ -532,7 +603,8 @@ Además del DoR del proyecto, para este flujo considero especialmente importante
     \item precondiciones;
     \item alternativas y errores importantes;
     \item riesgos;
-    \item referencia UX/Figma si existe una pantalla asociada;
+    \item referencia UX/Figma aprobada (frame y versión, viewport y responsable) si existe una pantalla asociada, o ausencia declarada;
+    \item trazabilidad de PNG, fuentes/assets realmente consultados y límites de acceso;
     \item claridad suficiente para que el complemento pueda construir el handoff.
 \end{itemize}
 
@@ -558,7 +630,7 @@ Los grupos de información más importantes son:
     \item estados y concurrencia;
     \item migración/data safety;
     \item seguridad/permisos;
-    \item UX y referencias visuales;
+    \item HU/CA/rol y referencia visual: master editable aprobado, PNGs por etapa/viewport y procedencia comprobable;
     \item decisiones aprobadas;
     \item material uncertainty;
     \item contexto de test/verificación;
@@ -570,6 +642,8 @@ Los grupos de información más importantes son:
 \begin{principlebox}[Regla esencial]
 La plantilla organiza lo que \textbf{sé y decido antes de ejecutar}. Pi debe determinar lo que \textbf{sólo puede saberse inspeccionando el repositorio real}.
 \end{principlebox}
+
+Para una HU con pantalla, separo decisiones funcionales aprobadas de intención visual. Si una referencia las contradice, prevalecen HU, CA y reglas; para diseño, identidad oficial, tokens/kit y el master editable aprobado prevalecen sobre PNG intermedios. El briefing enlaza la versión/frame exactos, el estado de aprobación, viewport y procedencia; nunca presenta una imagen plana como diseño editable ni como evidencia de código. La sección \textbf{Sources of Truth} y \textbf{UX / Visual / Responsive} de la plantilla conserva estos datos sin duplicar el procedimiento de la \href{https://github.com/Alex-Fernandez-2003/workflow-with-gentle-ai/blob/docs/workflow-showcase/docs/ux/flujo-referencias-visuales.md}{guía visual canónica}.
 
 % ============================================================
 \section{Fase 5 — Generación del ODD Execution Brief}
@@ -739,6 +813,8 @@ Una característica central de mi adaptación es que ODD no reemplaza la documen
 
 \subsection{Dos capas distintas}
 
+La referencia visual aprobada, su versión y la procedencia útil pertenecen a la documentación permanente de UX/HU. Un ledger `odd/tasks/` puede registrar el avance de implementación, pero no reemplaza esa referencia ni su evidencia de aprobación.
+
 \begin{tabularx}{\textwidth}{>{\bfseries}p{0.29\textwidth}X}
 \toprule
 Capa & Propósito \\
@@ -752,7 +828,7 @@ Permite recuperar el estado de implementación de una feature sustancial: tareas
 
 \subsection{Regla de sincronización conceptual}
 
-Cuando una HU modifica una verdad permanente del sistema, el trabajo no está completamente terminado si la documentación conocida queda desactualizada.
+Cuando una HU modifica una verdad permanente del sistema, el trabajo no está completamente terminado si la documentación conocida queda desactualizada. Si cambia la función o marca aprobada, actualizo la fuente correspondiente y reviso el master visual afectado; el PNG por sí solo no sustituye esa decisión.
 
 Por ello, al final de cada HU reviso:
 
@@ -831,8 +907,12 @@ Preparar la baseline técnica y organizativa para desarrollar. &
 La entrega incremental de valor durante los sprints posteriores. \\
 
 UX Pilot / Figma &
-Producir referencias visuales y apoyar la definición de pantallas/estados. &
-Las reglas de negocio ni el alcance funcional aprobado. \\
+Crear la propuesta inicial, reconstruir la imagen aprobada como diseño editable y producir pantallas coherentes con el sistema visual. &
+La aprobación humana, el alcance funcional ni la implementación frontend; una captura plana no es reconstrucción editable. \\
+
+ChatGPT (mejora visual) &
+Producir el PNG mejorado usando sólo el contexto y assets realmente accesibles, declarando fuentes y límites. &
+El acceso a GitHub no verificado, el diseño editable de Figma ni el código del producto. \\
 
 Plantilla Maestra &
 Estructurar la información de la HU antes del complemento. &
@@ -843,8 +923,8 @@ Generar el ODD Execution Brief y preservar intención, aceptación y límites. &
 La implementación técnica real. \\
 
 Pi + Gentle Shell &
-Explorar, planificar desde evidencia, implementar, delegar y verificar. &
-La autoridad humana sobre scope y delivery. \\
+Inspeccionar por separado el repositorio, código, contratos y pruebas; planificar desde evidencia, implementar y verificar. &
+La autoridad humana sobre scope y delivery; una referencia visual no es prueba de implementación. \\
 
 ODD tracking / Engram &
 Dar continuidad recuperable al trabajo sustancial. &
@@ -878,7 +958,7 @@ La trazabilidad deseada puede representarse de esta forma:
 \node[mini, right=of hall] (req) {RF/RNF/regla};
 \node[mini, right=of req] (hu) {HU + aceptación};
 
-\node[mini, below=of hu] (ux) {UX Pilot / Figma};
+\node[mini, below=of hu] (ux) {PNG inicial/mejorado + master UX editable aprobado};
 \node[mini, left=of ux] (tpl) {Plantilla Maestra};
 \node[mini, left=of tpl] (brief) {ODD Execution Brief};
 \node[mini, left=of brief] (pi) {Pi / ODD};
@@ -902,7 +982,7 @@ La trazabilidad deseada puede representarse de esta forma:
 \end{tikzpicture}
 \end{center}
 
-Esta cadena permite responder no sólo ``qué se programó'', sino \textbf{por qué existe, qué necesidad satisface, cómo se diseñó, cómo se comprobó y qué evidencia respalda el resultado}.
+Esta cadena permite responder no sólo ``qué se programó'', sino \textbf{por qué existe, qué necesidad satisface, cómo se diseñó, cómo se comprobó y qué evidencia respalda el resultado}. Para cada referencia visual conservo la relación HU/CA/rol \(\rightarrow\) frame y versión editable aprobados \(\rightarrow\) PNG inicial/mejorado y viewport \(\rightarrow\) GitHub/rama o commit, rutas y assets realmente consultados \(\rightarrow\) aprobación humana (responsable/fecha) \(\rightarrow\) handoff. No afirmo acceso ni procedencia que no pueda verificar.
 
 % ============================================================
 \section{Procedimiento operativo por cada HU}
@@ -912,7 +992,9 @@ Cuando el proyecto ya superó las etapas de análisis, Sprint 0 y preparación U
 \begin{enumerate}
     \item Seleccionar la HU priorizada.
     \item Confirmar que sigue cumpliendo Definition of Ready.
-    \item Revisar decisiones, reglas, dependencias y referencias visuales.
+    \item Revisar decisiones funcionales, reglas, dependencias y referencias visuales vigentes.
+    \item Si la HU necesita una pantalla, enlazar el master editable aprobado o completar el ciclo UX antes del handoff; no se generan vistas por ceremonia.
+    \item Registrar en la HU los PNG por etapa/viewport, la versión/frame, aprobación y fuentes/assets realmente consultados; declarar límites o ausencia de referencia.
     \item Completar la Plantilla Maestra con el contexto específico.
     \item Enviar la plantilla al complemento.
     \item Revisar el ODD Execution Brief generado.
@@ -948,7 +1030,7 @@ Añado Sprint 0 para establecer una base técnica mínima antes de iniciar las H
 
 UX &
 Depende del proyecto/contexto. &
-Genero referencias de pantallas con UX Pilot en Figma antes de implementar HUs visuales. \\
+Tras Checklist, requisitos y Sprint 0, UX Pilot crea el inicio; ChatGPT mejora el PNG con contexto realmente accesible; reconstruyo y apruebo el master editable. Otras pantallas heredan el sistema y el refinamiento posterior es opcional. \\
 
 Handoff &
 Petición al agente. &
@@ -980,6 +1062,12 @@ Puedo añadir Maintainer Review antes de cualquier delivery remoto. \\
     \item Inventar entrevistas, encuestas, usuarios, resultados o validaciones.
     \item Convertir cada sugerencia de un stakeholder en un requisito.
     \item Diseñar pantallas sin reglas o flujo suficientemente claros.
+    \item Declarar master la primera propuesta de UX Pilot sin reconstrucción editable, comparación y aprobación humana.
+    \item Colocar un PNG plano en un frame y llamarlo editable, o confundir componentes de Figma con componentes frontend.
+    \item Permitir que una referencia visual agregue funciones, acciones, permisos, datos o estados que la HU no autoriza.
+    \item Alterar la identidad/logo oficial o ignorar tokens, kit y assets aprobados por una imagen intermedia.
+    \item Afirmar que ChatGPT consultó GitHub/docs/assets o que una imagen es responsive/accesible sin verificación real.
+    \item Repetir refinamientos opcionales sin una necesidad concreta o perder versión, viewport, procedencia y aprobación.
     \item Usar una imagen de Figma como contrato funcional completo.
     \item Pedir al complemento que invente el repositorio.
     \item Predefinir tareas técnicas sin inspeccionar código real.
@@ -995,16 +1083,17 @@ Puedo añadir Maintainer Review antes de cualquier delivery remoto. \\
 % ============================================================
 \section{Ejemplo resumido de aplicación}
 
-Supongamos una HU de importación CSV.
+Supongamos una HU hipotética de importación CSV. Este ejemplo es metodológico, no una ejecución: aquí no se generaron imágenes ni se consultó un repositorio o archivo Figma real.
 
 \begin{enumerate}
     \item Durante relevamiento se descubre que el registro manual masivo consume tiempo y produce errores.
     \item El hallazgo se convierte en necesidad y luego en requisito.
     \item El backlog crea una HU de importación.
     \item Sprint 0 ya dejó frontend, backend, persistencia y tests base disponibles.
-    \item UX Pilot genera la referencia de selección de archivo, preview, errores y resultado.
+    \item UX Pilot/Figma propone la pantalla inicial y se exporta su PNG. ChatGPT sólo usa el GitHub, docs y assets que realmente puede consultar para producir un PNG mejorado; si no tiene acceso, lo declara.
+    \item La persona reconstruye la imagen como elementos editables, compara función/marca/legibilidad y aprueba la versión exacta como master. Las vistas posteriores siguen el sistema sin copiar necesariamente el layout; cualquier refinamiento es opcional.
     \item La HU se completa con reglas de campos, duplicados, permisos y atomicidad.
-    \item La Plantilla Maestra especifica scope, non-goals, sources of truth, acceptance y evidencia.
+    \item La Plantilla Maestra especifica scope, non-goals, sources of truth, acceptance, referencia Figma aprobada y procedencia/evidencia visual.
     \item El complemento genera el ODD Execution Brief.
     \item Pi explora el repositorio para localizar validadores, patrones de upload, API, transacciones y test runners reales.
     \item Si el trabajo es sustancial, crea tracking ODD.
@@ -1047,6 +1136,8 @@ Si estas preguntas no pueden responderse con claridad, el flujo todavía tiene u
     \item \textbf{Checklist Maestra Universal para Proyectos Universitarios de Software v4}. Base metodológica y documental utilizada por el responsable.
     \item \textbf{Plantilla Maestra de Prompt — Gentle AI ODD Briefing Generator}. Interfaz de preparación de contexto por HU.
     \item \textbf{Gentle AI ODD Briefing Generator}. Complemento personal utilizado para construir el handoff para Pi.
+    \item \href{https://github.com/Alex-Fernandez-2003/workflow-with-gentle-ai/blob/docs/workflow-showcase/docs/ux/flujo-referencias-visuales.md}{\textbf{Guía del ciclo de referencias visuales UX}}. Procedimiento principal para PNG, contexto, reconstrucción editable, aprobación, autoridad y handoff.
+    \item \href{https://github.com/Alex-Fernandez-2003/workflow-with-gentle-ai/blob/docs/workflow-showcase/docs/ux/plantilla-chatgpt-mejora-referencias-visuales.md}{\textbf{Plantilla autónoma de ChatGPT}}. Prompt para solicitar el PNG mejorado y declarar fuentes/límites; no efectúa la reconstrucción ni aprueba el master.
 \end{itemize}
 
 \subsection*{Referencias de Gentleman}
@@ -1079,7 +1170,12 @@ Los videos y la documentación de Gentleman explican el flujo base de ODD/Gentle
     \item[\(\square\)] Crear backlog, épicas, HUs y aceptación.
     \item[\(\square\)] Alcanzar DoR suficiente.
     \item[\(\square\)] Completar Sprint 0 técnico.
-    \item[\(\square\)] Generar referencias UX Pilot/Figma.
+    \item[\(\square\)] Crear la propuesta inicial UX Pilot/Figma desde la HU, reglas, marca y contexto confirmado.
+    \item[\(\square\)] Exportar PNG inicial; solicitar a ChatGPT un PNG mejorado con acceso real y límites declarados.
+    \item[\(\square\)] Reconstruir y verificar el diseño editable; comparar y aprobar humanamente el master exacto.
+    \item[\(\square\)] Diseñar otras pantallas según backlog, coherentes con el sistema; refinar sólo si existe necesidad concreta.
+    \item[\(\square\)] Enlazar en HU/brief el frame/versión, viewport y aprobación.
+    \item[\(\square\)] Registrar PNGs, fuentes consultadas y límites como evidencia.
     \item[\(\square\)] Seleccionar HU priorizada.
     \item[\(\square\)] Completar Plantilla Maestra.
     \item[\(\square\)] Generar ODD Execution Brief con el complemento.
